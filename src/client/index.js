@@ -3,9 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import 'semantic-ui-css/semantic.min.css'
 import App from './client/app/App.js';
+import { Router } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+    <Router>
+      <App />
+    </Router>,
+    document.getElementById('root')
+  );
 
 // ReactDOM.render(<App />, document.getElementById('root'));
 
