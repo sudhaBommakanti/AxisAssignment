@@ -1,35 +1,53 @@
 import React, { Component } from 'react';
 import { MovieList } from './components/movie-list/movie-list.component';
+import SearchBox from './components/search-box/search-box.component';
 import Footer from './components/Footer';
-import  SearchBox  from './components/search-box/search-box.component';
-
+import { Loader } from 'semantic-ui-react';
 import './App.css';
 
+const URL = 'https://api.nytimes.com/svc/movies/v2/reviews/search.json?query=';
+const API_KEY = '&api-key=alHlcZwkT3JYQS8fHbnZwJmY5yWZS07j';
 class App extends Component {
   constructor() {
     super();
     this.state = {
       movies: [],
       searchField: '',
-      loading: false
+      loading: false,
+      error: null
     }
-     this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
- async componentDidMount() {
-    fetch('https://api.nytimes.com/svc/movies/v2/reviews/search.json?' + { query : this.state.searchField } + '&api-key=alHlcZwkT3JYQS8fHbnZwJmY5yWZS07j')
-      .then(response => response.json())
-      .then(movies => this.setState({ movies: movies.results }));
+  async getMovies() {
+    const { searchField } = this.state;
+    this.setState({ loading: true })
+    fetch(URL + searchField + API_KEY)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Something went wrong ...');
+        }
+      })
+      .then(movies => this.setState({ movies: movies.results, loading: false }))
+      .catch(error => this.setState({ error, loading: false }));
   }
 
-  handleChange = e => {
+  async componentDidMount() {
+    setTimeout(() => {
+      this.getMovies()
+    }, 1000);
+  }
+
+  handleChange(e) {
     this.setState({ searchField: e.target.value });
   }
 
   render() {
-    const { movies, searchField } = this.state;
-    const filteredMovies = movies.filter( movie => 
-        movie.display_title.toLowerCase().includes(searchField.toLowerCase())
+    const { movies, searchField, loading } = this.state;
+    const filteredMovies = movies.filter(movie =>
+      movie.display_title.toLowerCase().includes(searchField.toLowerCase())
     );
     return (
       <div className="App">
@@ -39,7 +57,9 @@ class App extends Component {
           placeholder='search movies'
           handleChange={this.handleChange}
         />
-        <MovieList movies={filteredMovies} />
+        { loading ? <Loader style={{ marginTop: 20 }} content='Loading' active inline='centered' /> : <MovieList
+          movies={filteredMovies}
+        />}
         <Footer />
       </div>
     );
