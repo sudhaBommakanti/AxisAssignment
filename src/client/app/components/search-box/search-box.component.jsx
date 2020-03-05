@@ -1,10 +1,26 @@
-import React  from 'react';
+import React, { Component } from 'react';
+import { Input } from 'semantic-ui-react';
 import './search-box.styles.css';
-export const SearchBox = ({ placeholder , handleChange }) => (
-    <input 
-        className='search'
-        type='search'
-        placeholder={ placeholder }
-        onChange={ handleChange } 
-    />
-);
+
+class SearchBox extends Component {
+ 
+    constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+  render() {
+    return (
+        <Input className="search" type='search'
+            placeholder={this.props.placeholder}
+            value={this.props.search}
+            onChange={this.props.handleChange}  
+        />
+    );
+  }
+}
+SearchBox.defaultProps = {
+    search: '',
+    onHandleChange: () => { },
+};
+export default SearchBox;

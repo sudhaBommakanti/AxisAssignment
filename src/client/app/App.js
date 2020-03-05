@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { MovieList } from './components/movie-list/movie-list.component';
 import Footer from './components/Footer';
-import { SearchBox } from './components/search-box/search-box.component';
+import  SearchBox  from './components/search-box/search-box.component';
+
 import './App.css';
 
 class App extends Component {
@@ -12,11 +13,11 @@ class App extends Component {
       searchField: '',
       loading: false
     }
-    //  this.handleChange = this.handleChange.bind(this);
+     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount() {
-    fetch('https://api.nytimes.com/svc/movies/v2/reviews/picks.json?api-key=alHlcZwkT3JYQS8fHbnZwJmY5yWZS07j')
+ async componentDidMount() {
+    fetch('https://api.nytimes.com/svc/movies/v2/reviews/search.json?' + { query : this.state.searchField } + '&api-key=alHlcZwkT3JYQS8fHbnZwJmY5yWZS07j')
       .then(response => response.json())
       .then(movies => this.setState({ movies: movies.results }));
   }
@@ -26,16 +27,19 @@ class App extends Component {
   }
 
   render() {
-    const { movies } = this.state;
-    console.log("the movies", movies);
+    const { movies, searchField } = this.state;
+    const filteredMovies = movies.filter( movie => 
+        movie.display_title.toLowerCase().includes(searchField.toLowerCase())
+    );
     return (
       <div className="App">
-        <h1> Movie Review App </h1>
+        <h1> Movie Review </h1>
         <SearchBox
+          search={searchField}
           placeholder='search movies'
           handleChange={this.handleChange}
         />
-        <MovieList movies={movies} />
+        <MovieList movies={filteredMovies} />
         <Footer />
       </div>
     );
