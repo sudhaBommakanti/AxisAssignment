@@ -20,7 +20,7 @@ export class Movie extends Component {
             <Card>
                 <Image floated='right' size='mini' src={this.props.movie.multimedia.src} wrapped ui={false} />
                 <Card.Content>
-                <Card.Header><strong>Title :</strong> {this.props.movie.display_title}</Card.Header>
+                <Card.Header>{this.props.movie.display_title}</Card.Header>
                 <Card.Meta><strong>Rating :</strong> {this.props.movie.mpaa_rating}</Card.Meta>
                 <Card.Description>
                         <strong>Summary :</strong> { this.props.movie.summary_short }<br />
@@ -38,33 +38,6 @@ export class Movie extends Component {
                 </div>
                 </Card.Content>
             </Card>
-            {/* <Card>
-                <Card.Content>
-                  <Image
-                    floated='right'
-                    size='small'
-                    src={this.props.movie.multimedia.src}
-                    />
-                    <Card.Header> Title: {this.props.movie.display_title}</Card.Header>
-                    <Card.Meta>
-                        <span className='date'>Rating : {this.props.movie.mpaa_rating} </span>
-                    </Card.Meta>
-                    <Card.Description>
-                        Summary : { this.props.movie.summary_short }<br />
-                        Critics_pick : {this.props.movie.critics_pick} <br />
-                        Critic : {this.props.movie.byline}
-                    </Card.Description>
-                </Card.Content>
-                <Card.Content extra>
-                <div>
-                <a href={this.props.movie.link.url} target="_blank">
-                    <Button size="small" basic color='green'>
-                        Read Review
-                    </Button>
-                </a>
-                </div>
-          </Card.Content>
-            </Card> */}
             </div>
         );
     }

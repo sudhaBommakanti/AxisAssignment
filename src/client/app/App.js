@@ -54,7 +54,7 @@ class App extends Component {
         <h1> Movie Review </h1>
         <SearchBox
           search={searchField}
-          placeholder='search movies'
+          placeholder='Search Movies'
           handleChange={this.handleChange}
         />
         { loading ? <Loader style={{ marginTop: 20 }} content='Loading' active inline='centered' /> : <MovieList
