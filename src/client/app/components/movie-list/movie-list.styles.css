@@ -1,6 +1,7 @@
 .movie-list {
     width: 85vw;
     margin: 0 auto;
+    margin-bottom: 2.3em !important;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 20px;

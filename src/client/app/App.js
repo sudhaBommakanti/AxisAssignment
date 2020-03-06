@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MovieList } from './components/movie-list/movie-list.component';
+import  MovieList  from './components/movie-list/movie-list.component';
 import SearchBox from './components/search-box/search-box.component';
 import Footer from './components/Footer';
 import { Loader } from 'semantic-ui-react';
@@ -7,6 +7,7 @@ import './App.css';
 
 const URL = 'https://api.nytimes.com/svc/movies/v2/reviews/search.json?query=';
 const API_KEY = '&api-key=alHlcZwkT3JYQS8fHbnZwJmY5yWZS07j';
+
 class App extends Component {
   constructor() {
     super();
@@ -19,6 +20,10 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  /**
+   * Called when the component is mounted to get the list of movie reviews array.
+   * @public
+   */
   async getMovies() {
     const { searchField } = this.state;
     this.setState({ loading: true })
@@ -40,6 +45,11 @@ class App extends Component {
     }, 1000);
   }
 
+  /**
+   * Called when a new event occurs on a search field with this.
+   * @param {field}   event   The event field with the search parameter.
+   * sets the state of the search field with the event target value.
+   */
   handleChange(e) {
     this.setState({ searchField: e.target.value });
   }
@@ -59,7 +69,7 @@ class App extends Component {
         />
         { loading ? <Loader style={{ marginTop: 20 }} content='Loading' active inline='centered' /> : <MovieList
           movies={filteredMovies}
-        />}
+        /> }
         <Footer />
       </div>
     );

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, Image, Button } from 'semantic-ui-react';
 import './movie.styles.css';
 
-export class Movie extends Component {
+class Movie extends Component {
      
     constructor(props) {
         super(props);
@@ -10,6 +10,10 @@ export class Movie extends Component {
         };
     }
 
+    /**
+     * Called when a click event occurs on a read review button.
+     * redirects the page to the new york review times page of the specific movie.
+    */
     onClickReview() {
         this.props.history.push(this.props.movie.link.url);
     }
@@ -43,3 +47,5 @@ export class Movie extends Component {
     }
 
 } 
+
+export default Movie;
